@@ -1,0 +1,6 @@
+framework module AdPieXFramework {
+  umbrella header "AdPieSDK.h"
+  export *
+
+  module * { export * }
+}
