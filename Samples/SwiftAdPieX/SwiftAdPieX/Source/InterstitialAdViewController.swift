@@ -103,6 +103,10 @@ extension InterstitialAdViewController: APInterstitialDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    func interstitialDidFail(toShowAd interstitial: APInterstitial!, withError error: (any Error)!) {
+        print(#function)
+    }
+    
     func interstitialWillPresentScreen(_ interstitial: APInterstitial!) {
         print(#function)
     }

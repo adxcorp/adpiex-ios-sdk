@@ -116,6 +116,10 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
+- (void)rewardedAdDidFailToShowAd:(APRewardedAd *)rewardedAd withError:(NSError *)error {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
 - (void)rewardedAdWillPresentScreen:(APRewardedAd *)rewardedAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }

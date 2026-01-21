@@ -102,6 +102,10 @@ extension RewardedAdViewController: APRewardedAdDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    func rewardedAdDidFail(toShow rewardedAd: APRewardedAd!, withError error: Error!) {
+        print(#function)
+    }
+    
     func rewardedAdWillPresentScreen(_ rewardedAd: APRewardedAd!) {
         print(#function)
     }

@@ -116,6 +116,10 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
+- (void)interstitialDidFailToShowAd:(APInterstitial *)interstitial withError:(NSError *)error {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
 - (void)interstitialWillPresentScreen:(APInterstitial *)interstitial {
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
