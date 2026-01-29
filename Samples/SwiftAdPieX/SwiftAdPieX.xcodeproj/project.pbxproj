@@ -176,7 +176,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gomfactory.AdPieSwiftSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gomfactory.adpiex.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -210,7 +210,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gomfactory.AdPieSwiftSample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gomfactory.adpiex.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -175,7 +175,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.adxcorp.AdPieObjCApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gomfactory.adpiex.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -208,7 +208,7 @@
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.adxcorp.AdPieObjCApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gomfactory.adpiex.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
