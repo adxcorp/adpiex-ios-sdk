@@ -37,7 +37,7 @@
 - (void)initializeAdPieSDK {
    if ([[AdPieSDK sharedInstance] isInitialized]) { return; }
    [[AdPieSDK sharedInstance] logging];
-   [[AdPieSDK sharedInstance] initWithMediaId:@"692919ce92a14648b7f8bd92"];
+   [[AdPieSDK sharedInstance] initWithMediaId:@"697c12a8a56addbb35024bff"];
 }
 
 - (void)requestTrackingPermission:(void (^)(BOOL granted))completion {

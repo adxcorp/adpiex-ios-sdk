@@ -20,10 +20,15 @@ class AdListViewController: UIViewController {
 
     // List of data items
     private let items: [AdMenuItem] = [
-        AdMenuItem(title: "Interstitial Ad - Image", subtitle: "전면 광고 - 이미지"),
-        AdMenuItem(title: "Interstitial Ad - Video", subtitle: "전면 광고 - 비디오"),
+        AdMenuItem(title: "Interstitial Ad - Image, Portrait", subtitle: "전면 광고 - 이미지, 세로"),
+        AdMenuItem(title: "Interstitial Ad - Image, Landscape", subtitle: "전면 광고 - 이미지, 가로"),
+        
+        AdMenuItem(title: "Interstitial Ad - Video, Portrait", subtitle: "전면 광고 - 비디오, 세로"),
+        AdMenuItem(title: "Interstitial Ad - Video, Landscape", subtitle: "전면 광고 - 비디오, 가로"),
+        
         AdMenuItem(title: "Rewarded Ad - Portrait", subtitle: "리워드 광고 - 세로"),
         AdMenuItem(title: "Rewarded Ad - Landscape", subtitle: "리워드 광고 - 가로"),
+        
         AdMenuItem(title: "Native Ad", subtitle: "네이티브 광고")
     ]
 
@@ -83,15 +88,19 @@ extension AdListViewController: UITableViewDelegate, UITableViewDataSource {
         var destinationVC:UIViewController? = nil
         switch indexPath.row {
         case 0:
-            destinationVC = InterstitialAdViewController(slotId: "692919f192a14648b7f8bd94")
+            destinationVC = InterstitialAdViewController(slotId: "697c1394a56addbb35024c04")
         case 1:
-            destinationVC = InterstitialAdViewController(slotId: "69291a1592a14648b7f8bd96")
+            destinationVC = InterstitialAdViewController(slotId: "697c13b7a56addbb35024c06")
         case 2:
-            destinationVC = RewardedAdViewController(slotId: "69291a4b92a14648b7f8bd9a")
+            destinationVC = InterstitialAdViewController(slotId: "697c173da56addbb35024c0d")
         case 3:
-            destinationVC = RewardedAdViewController(slotId: "69291a7692a14648b7f8bd9d")
+            destinationVC = InterstitialAdViewController(slotId: "697c1792a56addbb35024c0f")
         case 4:
-            destinationVC = NativeAdViewController(slotId: "69291a2d92a14648b7f8bd98")
+            destinationVC = RewardedAdViewController(slotId: "697c1d6ea56addbb35024c29")
+        case 5:
+            destinationVC = RewardedAdViewController(slotId: "697c1d94a56addbb35024c2b")
+        case 6:
+            destinationVC = NativeAdViewController(slotId: "697c1c4fa56addbb35024c27")
         default:
             return
         }
@@ -136,7 +145,7 @@ class AdListCell: UITableViewCell {
     // English Title
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -145,7 +154,7 @@ class AdListCell: UITableViewCell {
     // Korean Subtitle
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -191,7 +200,7 @@ class AdListCell: UITableViewCell {
             // Logo position (Left)
             logoLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             logoLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            logoLabel.widthAnchor.constraint(equalToConstant: 80), // Fixed width for logo area
+            logoLabel.widthAnchor.constraint(equalToConstant: 60), // Fixed width for logo area
             
             // Text stack position (Right of logo)
             textStackView.leadingAnchor.constraint(equalTo: logoLabel.trailingAnchor, constant: 8),

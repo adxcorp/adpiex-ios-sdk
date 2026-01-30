@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func initializeAdPieSDK() {
         guard AdPieSDK.sharedInstance().isInitialized == false else { return }
         AdPieSDK.sharedInstance().logging()
-        AdPieSDK.sharedInstance().initWithMediaId("692919ce92a14648b7f8bd92")
+        AdPieSDK.sharedInstance().initWithMediaId("697c12a8a56addbb35024bff")
     }
     
     func requestTrackingPermission(completion: @escaping (Bool) -> Void) {

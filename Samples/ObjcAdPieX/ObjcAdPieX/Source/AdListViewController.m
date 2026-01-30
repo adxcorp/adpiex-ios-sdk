@@ -20,8 +20,13 @@
 
 - (void)setupData {
     self.items = @[
-        [AdMenuItem itemWithTitle:@"Interstitial Ad - Image" subtitle:@"전면 광고 - 이미지"],
-        [AdMenuItem itemWithTitle:@"Interstitial Ad - Video" subtitle:@"전면 광고 - 비디오"],
+        
+        [AdMenuItem itemWithTitle:@"Interstitial Ad - Image, Portrait" subtitle:@"전면 광고 - 이미지, 세로"],
+        [AdMenuItem itemWithTitle:@"Interstitial Ad - Image, Landscape" subtitle:@"전면 광고 - 이미지, 가로"],
+        
+        [AdMenuItem itemWithTitle:@"Interstitial Ad - Video, Portrait" subtitle:@"전면 광고 - 비디오, 세로"],
+        [AdMenuItem itemWithTitle:@"Interstitial Ad - Video, Landscape" subtitle:@"전면 광고 - 비디오, 가로"],
+        
         [AdMenuItem itemWithTitle:@"Rewarded Ad - Portrait" subtitle:@"리워드 광고 - 세로"],
         [AdMenuItem itemWithTitle:@"Rewarded Ad - Landscape" subtitle:@"리워드 광고 - 가로"],
         [AdMenuItem itemWithTitle:@"Native Ad" subtitle:@"네이티브 광고"]
@@ -77,11 +82,16 @@
     
     UIViewController * destinationVC = nil;
     switch (indexPath.row) {
-        case 0: destinationVC = [[InterstitialAdViewController alloc] initWithSlotId:@"692919f192a14648b7f8bd94"]; break;
-        case 1: destinationVC = [[InterstitialAdViewController alloc] initWithSlotId:@"69291a1592a14648b7f8bd96"]; break;
-        case 2: destinationVC = [[RewardedAdViewController alloc] initWithSlotId:@"69291a4b92a14648b7f8bd9a"]; break;
-        case 3: destinationVC = [[RewardedAdViewController alloc] initWithSlotId:@"69291a7692a14648b7f8bd9d"]; break;
-        case 4: destinationVC = [[NativeAdViewController alloc] initWithSlotId:@"69291a2d92a14648b7f8bd98"]; break;
+        case 0: destinationVC = [[InterstitialAdViewController alloc] initWithSlotId:@"697c1394a56addbb35024c04"]; break;
+        case 1: destinationVC = [[InterstitialAdViewController alloc] initWithSlotId:@"697c13b7a56addbb35024c06"]; break;
+            
+        case 2: destinationVC = [[InterstitialAdViewController alloc] initWithSlotId:@"697c173da56addbb35024c0d"]; break;
+        case 3: destinationVC = [[InterstitialAdViewController alloc] initWithSlotId:@"697c1792a56addbb35024c0f"]; break;
+            
+        case 4: destinationVC = [[RewardedAdViewController alloc] initWithSlotId:@"697c1d6ea56addbb35024c29"]; break;
+        case 5: destinationVC = [[RewardedAdViewController alloc] initWithSlotId:@"697c1d94a56addbb35024c2b"]; break;
+            
+        case 6: destinationVC = [[NativeAdViewController alloc] initWithSlotId:@"697c1c4fa56addbb35024c27"]; break;
         default:
             return;
     }

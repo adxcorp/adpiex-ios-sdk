@@ -43,12 +43,12 @@
     
     // 3. Title & Subtitle Labels
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightMedium];
+    self.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     self.titleLabel.textColor = [UIColor darkGrayColor];
     self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.subtitleLabel = [[UILabel alloc] init];
-    self.subtitleLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
+    self.subtitleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
     self.subtitleLabel.textColor = [UIColor grayColor];
     self.subtitleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -71,7 +71,7 @@
         // Logo Label Constraints
         [self.logoLabel.leadingAnchor constraintEqualToAnchor:self.containerView.leadingAnchor constant:16],
         [self.logoLabel.centerYAnchor constraintEqualToAnchor:self.containerView.centerYAnchor],
-        [self.logoLabel.widthAnchor constraintEqualToConstant:80],
+        [self.logoLabel.widthAnchor constraintEqualToConstant:60],
         
         // Stack View Constraints
         [self.textStackView.leadingAnchor constraintEqualToAnchor:self.logoLabel.trailingAnchor constant:8],
