@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "AdPieX-SDK"
-  spec.version      = "1.0.1"
+  spec.version      = "1.0.2"
   spec.summary      = "AdPieX Ads SDK."
   spec.description  = "The AdPieX SDK allows developers to easily incorporate banner, interstitial and native ads. It will benefit developers a lot."
   spec.homepage     = "https://docs.adpiex.com/adpiex"
