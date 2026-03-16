@@ -36,6 +36,11 @@
     [super viewDidLoad];
     [self setupUI];
     [self setupData];
+    [self setupAd];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self loadAd];
 }
 
@@ -61,9 +66,12 @@
     }
 }
 
-- (void)loadAd {
+- (void)setupAd {
     self.nativeAd = [[APNativeAd alloc] initWithSlotId:self.slotId];
     self.nativeAd.delegate = self;
+}
+    
+- (void)loadAd {
     [self.nativeAd load];
 }
 

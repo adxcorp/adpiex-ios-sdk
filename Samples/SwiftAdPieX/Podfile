@@ -5,6 +5,6 @@ target 'SwiftAdPieX' do
   use_frameworks!
 
   # Pods for SwiftAdPieX
-  pod 'AdPieX-SDK', '1.0.1'
+  pod 'AdPieX-SDK', '1.0.2'
 
 end

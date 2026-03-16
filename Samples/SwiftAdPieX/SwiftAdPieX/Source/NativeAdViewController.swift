@@ -33,6 +33,11 @@ class NativeAdViewController: UITableViewController {
         super.viewDidLoad()
         setupUI()
         setupData()
+        setupAd()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         loadAd()
     }
     
@@ -57,9 +62,12 @@ class NativeAdViewController: UITableViewController {
         items = (1...20).map { .content("Item \($0)") }
     }
     
-    private func loadAd() {
+    private func setupAd() {
         nativeAd = APNativeAd(slotId: self.slotId)
         nativeAd?.delegate = self
+    }
+    
+    private func loadAd() {
         nativeAd?.load()
     }
 }
