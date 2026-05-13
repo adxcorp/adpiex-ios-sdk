@@ -1,6 +1,11 @@
 
 # Change log
 
+### 1.0.3 (2026/05/13)
+ - Improved video UI
+ - Added auto-close for interstitial video ads
+ - Added skip support for rewarded video ads
+
 ### 1.0.2 (2026/03/16)
  - Improved SDK stability
  
