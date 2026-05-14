@@ -92,10 +92,12 @@ extension InterstitialAdViewController: APInterstitialDelegate {
     // MARK: - APInterstitial delegates
     
     func interstitialDidLoadAd(_ interstitial: APInterstitial!) {
+        showToast(message: #function)
         print(#function)
     }
     
     func interstitialDidFail(toLoadAd interstitial: APInterstitial!, withError error: Error!) {
+        showToast(message: #function)
         let errorMessage = "Failed to load interstitial ads." + "(code : " + String(error._code) + ", message : " + error.localizedDescription + ")"
         let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -104,6 +106,12 @@ extension InterstitialAdViewController: APInterstitialDelegate {
     }
     
     func interstitialDidFail(toShowAd interstitial: APInterstitial!, withError error: (any Error)!) {
+        showToast(message: #function)
+        print(#function)
+    }
+    
+    func interstitialDidDismissScreen(_ interstitial: APInterstitial!) {
+        showToast(message: #function)
         print(#function)
     }
     
@@ -111,12 +119,7 @@ extension InterstitialAdViewController: APInterstitialDelegate {
         print(#function)
     }
     
-    
     func interstitialWillDismissScreen(_ interstitial: APInterstitial!) {
-        print(#function)
-    }
-    
-    func interstitialDidDismissScreen(_ interstitial: APInterstitial!) {
         print(#function)
     }
     

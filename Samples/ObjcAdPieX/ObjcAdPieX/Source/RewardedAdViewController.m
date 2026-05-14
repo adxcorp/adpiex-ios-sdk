@@ -1,5 +1,6 @@
 #import "RewardedAdViewController.h"
 #import <AdPieXFramework/AdPieSDK.h>
+#import "UIViewController+Toast.h"
 
 @interface RewardedAdViewController () <APRewardedAdDelegate>
 // Private Properties
@@ -107,16 +108,29 @@
 #pragma mark - APInterstitialDelegate
 
 - (void)rewardedAdDidLoadAd:(APRewardedAd *)rewardedAd; {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)rewardedAdDidFailToLoadAd:(APRewardedAd *)rewardedAd
                           withError:(NSError *)error
 {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)rewardedAdDidFailToShowAd:(APRewardedAd *)rewardedAd withError:(NSError *)error {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
+- (void)rewardedAdDidDismissScreen:(APRewardedAd *)rewardedAd {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
+- (void)rewardedAdDidEarnReward:(APRewardedAd *)rewardedAd {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
@@ -128,15 +142,7 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
-- (void)rewardedAdDidDismissScreen:(APRewardedAd *)rewardedAd {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
 - (void)rewardedAdWillLeaveApplication:(APRewardedAd *)rewardedAd {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
-- (void)rewardedAdDidEarnReward:(APRewardedAd *)rewardedAd {
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 

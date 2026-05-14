@@ -119,6 +119,7 @@ extension NativeAdViewController {
 extension NativeAdViewController: APNativeDelegate {
     
     func nativeDidLoad(_ nativeAd: APNativeAd!) {
+        showToast(message: #function)
         guard let adData = nativeAd.nativeAdData else { return }
         // When ad data loads, insert it into the array at the specified index.
         // Safely check array bounds before insertion to prevent crashes.
@@ -130,6 +131,7 @@ extension NativeAdViewController: APNativeDelegate {
     }
     
     func nativeDidFail(toLoad nativeAd: APNativeAd!, withError error: Error!) {
+        showToast(message: #function)
         let alert = UIAlertController(
             title: "Ad Load Error",
             message: error.localizedDescription,

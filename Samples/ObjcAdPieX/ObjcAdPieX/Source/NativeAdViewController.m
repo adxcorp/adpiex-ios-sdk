@@ -1,6 +1,7 @@
 #import "NativeAdViewController.h"
 #import "AdPieTableViewCell.h"
 #import <AdPieXFramework/AdPieSDK.h>
+#import "UIViewController+Toast.h"
 
 @interface NativeAdViewController () <APNativeDelegate>
 // MARK: - Properties
@@ -117,6 +118,7 @@
 #pragma mark - APNativeDelegate
 
 - (void)nativeDidLoadAd:(APNativeAd *)nativeAd {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     if (nativeAd.nativeAdData == nil) { return; }
     NSInteger insertIndex = MIN(self.adRowIndex, self.items.count);
     [self.items insertObject:nativeAd.nativeAdData atIndex:insertIndex];
@@ -124,6 +126,7 @@
 }
 
 - (void)nativeDidFailToLoadAd:(APNativeAd *)nativeAd withError:(NSError *)error {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSString *message = error.localizedDescription;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ad Load Error"
                                                                    message:message

@@ -1,5 +1,6 @@
 #import "InterstitialAdViewController.h"
 #import <AdPieXFramework/AdPieSDK.h>
+#import "UIViewController+Toast.h"
 
 @interface InterstitialAdViewController () <APInterstitialDelegate>
 // Private Properties
@@ -107,16 +108,24 @@
 #pragma mark - APInterstitialDelegate
 
 - (void)interstitialDidLoadAd:(APInterstitial *)interstitial {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)interstitialDidFailToLoadAd:(APInterstitial *)interstitial
                           withError:(NSError *)error
 {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)interstitialDidFailToShowAd:(APInterstitial *)interstitial withError:(NSError *)error {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
+
+- (void)interstitialDidDismissScreen:(APInterstitial *)interstitial {
+    [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
@@ -125,10 +134,6 @@
 }
 
 - (void)interstitialWillDismissScreen:(APInterstitial *)interstitial {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-}
-
-- (void)interstitialDidDismissScreen:(APInterstitial *)interstitial {
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 

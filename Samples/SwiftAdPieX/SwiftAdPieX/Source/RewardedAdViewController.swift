@@ -91,10 +91,12 @@ extension RewardedAdViewController: APRewardedAdDelegate {
 
     // MARK: - APRewardedAdDelegate delegates
     func rewardedAdDidLoad(_ rewardedAd: APRewardedAd!) {
+        showToast(message: #function)
         print(#function)
     }
     
     func rewardedAdDidFail(toLoad rewardedAd: APRewardedAd!, withError error: Error!) {
+        showToast(message: #function)
         let errorMessage = "Failed to load interstitial ads." + "(code : " + String(error._code) + ", message : " + error.localizedDescription + ")"
         let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -103,6 +105,17 @@ extension RewardedAdViewController: APRewardedAdDelegate {
     }
     
     func rewardedAdDidFail(toShow rewardedAd: APRewardedAd!, withError error: Error!) {
+        showToast(message: #function)
+        print(#function)
+    }
+    
+    func rewardedAdDidDismissScreen(_ rewardedAd: APRewardedAd!) {
+        showToast(message: #function)
+        print(#function)
+    }
+    
+    func rewardedAdDidEarnReward(_ rewardedAd: APRewardedAd!) {
+        showToast(message: #function)
         print(#function)
     }
     
@@ -111,14 +124,6 @@ extension RewardedAdViewController: APRewardedAdDelegate {
     }
     
     func rewardedAdWillDismissScreen(_ rewardedAd: APRewardedAd!) {
-        print(#function)
-    }
-    
-    func rewardedAdDidDismissScreen(_ rewardedAd: APRewardedAd!) {
-        print(#function)
-    }
-    
-    func rewardedAdDidEarnReward(_ rewardedAd: APRewardedAd!) {
         print(#function)
     }
     
