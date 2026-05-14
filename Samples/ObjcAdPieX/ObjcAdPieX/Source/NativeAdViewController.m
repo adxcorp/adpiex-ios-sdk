@@ -127,15 +127,11 @@
 
 - (void)nativeDidFailToLoadAd:(APNativeAd *)nativeAd withError:(NSError *)error {
     [self showToastWithMessage:[NSString stringWithFormat:@"%s",__PRETTY_FUNCTION__]];
-    NSString *message = error.localizedDescription;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ad Load Error"
-                                                                   message:message
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:nil];
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:nil];
+    NSString * errorMsg = [NSString stringWithFormat:@"Error (code : %d, message : %@, date : %@)",
+                           (int)[error code],
+                           [error localizedDescription],
+                           [[NSDate date] descriptionWithLocale:[NSLocale systemLocale]]];
+    NSLog(@"%s, %@", __PRETTY_FUNCTION__, errorMsg);
 }
 
 - (void)nativeWillLeaveApplication:(APNativeAd *)nativeAd {
