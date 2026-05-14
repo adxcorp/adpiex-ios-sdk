@@ -2,9 +2,24 @@
 import UIKit
 
 // 1. Define Data Model
+enum AdViewControllerType {
+    case interstitial(String)
+    case rewarded(String)
+    case native(String)
+    
+    var viewController: UIViewController {
+        switch self {
+        case .interstitial(let slotId): return InterstitialAdViewController(slotId: slotId)
+        case .rewarded(let slotId): return RewardedAdViewController(slotId: slotId)
+        case .native(let slotId): return NativeAdViewController(slotId: slotId)
+        }
+    }
+}
+
 struct AdMenuItem {
     let title: String
     let subtitle: String
+    let type: AdViewControllerType
 }
 
 class AdListViewController: UIViewController {
@@ -20,16 +35,16 @@ class AdListViewController: UIViewController {
 
     // List of data items
     private let items: [AdMenuItem] = [
-        AdMenuItem(title: "Interstitial Ad - Image, Portrait", subtitle: "전면 광고 - 이미지, 세로"),
-        AdMenuItem(title: "Interstitial Ad - Image, Landscape", subtitle: "전면 광고 - 이미지, 가로"),
+        AdMenuItem(title: "Interstitial Ad - Image, Portrait", subtitle: "전면 광고 - 이미지, 세로", type: .interstitial("697c1394a56addbb35024c04")),
+        AdMenuItem(title: "Interstitial Ad - Image, Landscape", subtitle: "전면 광고 - 이미지, 가로", type: .interstitial("697c13b7a56addbb35024c06")),
         
-        AdMenuItem(title: "Interstitial Ad - Video, Portrait", subtitle: "전면 광고 - 비디오, 세로"),
-        AdMenuItem(title: "Interstitial Ad - Video, Landscape", subtitle: "전면 광고 - 비디오, 가로"),
+        AdMenuItem(title: "Interstitial Ad - Video, Portrait", subtitle: "전면 광고 - 비디오, 세로", type: .interstitial("697c173da56addbb35024c0d")),
+        AdMenuItem(title: "Interstitial Ad - Video, Landscape", subtitle: "전면 광고 - 비디오, 가로", type: .interstitial("697c1792a56addbb35024c0f")),
         
-        AdMenuItem(title: "Rewarded Ad - Portrait", subtitle: "리워드 광고 - 세로"),
-        AdMenuItem(title: "Rewarded Ad - Landscape", subtitle: "리워드 광고 - 가로"),
+        AdMenuItem(title: "Rewarded Ad - Portrait", subtitle: "리워드 광고 - 세로", type: .rewarded("697c1d6ea56addbb35024c29")),
+        AdMenuItem(title: "Rewarded Ad - Landscape", subtitle: "리워드 광고 - 가로", type: .rewarded("697c1d94a56addbb35024c2b")),
         
-        AdMenuItem(title: "Native Ad", subtitle: "네이티브 광고")
+        AdMenuItem(title: "Native Ad", subtitle: "네이티브 광고", type: .native("697c1c4fa56addbb35024c27"))
     ]
 
     override func viewDidLoad() {
@@ -85,29 +100,10 @@ extension AdListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        var destinationVC:UIViewController? = nil
-        switch indexPath.row {
-        case 0:
-            destinationVC = InterstitialAdViewController(slotId: "697c1394a56addbb35024c04")
-        case 1:
-            destinationVC = InterstitialAdViewController(slotId: "697c13b7a56addbb35024c06")
-        case 2:
-            destinationVC = InterstitialAdViewController(slotId: "697c173da56addbb35024c0d")
-        case 3:
-            destinationVC = InterstitialAdViewController(slotId: "697c1792a56addbb35024c0f")
-        case 4:
-            destinationVC = RewardedAdViewController(slotId: "697c1d6ea56addbb35024c29")
-        case 5:
-            destinationVC = RewardedAdViewController(slotId: "697c1d94a56addbb35024c2b")
-        case 6:
-            destinationVC = NativeAdViewController(slotId: "697c1c4fa56addbb35024c27")
-        default:
-            return
-        }
-        
-        guard let destinationVC = destinationVC else { return }
         let selectedItem = items[indexPath.row]
+        let destinationVC = selectedItem.type.viewController
         destinationVC.title = selectedItem.title
+        
         if let navigationController = self.navigationController {
             navigationController.pushViewController(destinationVC, animated: true)
         } else {
