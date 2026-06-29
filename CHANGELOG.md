@@ -1,6 +1,9 @@
 
 # Change log
 
+### 1.0.5 (2026/06/29)
+ - Allow SSV data to be updated after ad load
+
 ### 1.0.4 (2026/06/25)
  - Fixed an issue where log messages with level 800 or below were hidden as Private in the console
  - Added atomic check-and-update logic to prevent race conditions when validating ad request time
