@@ -1,6 +1,15 @@
 
 # Change log
 
+### 1.0.6 (2026/08/03)
+ - Improved developer log activation and output
+ - Fixed an issue where the internal state remained SHOW even after the rewarded/interstitial ad was closed
+ - Changed the SID (Slot ID) property of rewarded/interstitial ads to read-only
+ - Added TTL-based ad expiration/reuse logic
+ - Applied Skip Message to interstitial/rewarded ads
+ - Added automatic video cache cleanup when initializing SDK
+ - Recently reused cached videos are now deprioritized for deletion (LWU timestamp refresh)
+
 ### 1.0.5 (2026/06/29)
  - Allow SSV data to be updated after ad load
 
