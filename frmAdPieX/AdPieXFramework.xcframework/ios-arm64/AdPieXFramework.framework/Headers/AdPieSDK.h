@@ -14,6 +14,11 @@
 #import "APRewardedAd.h"
 #import "APTargetingData.h"
 
+// The app-opening public header is packaged only in AdPieX.
+#if __has_include("APAppOpenAdService.h")
+#import "APAppOpenAdService.h"
+#endif
+
 typedef void (^ResultBlock)(BOOL isInitialized);
 
 @interface AdPieSDK : NSObject

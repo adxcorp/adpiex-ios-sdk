@@ -12,34 +12,6 @@
 @class APRewardedAd;
 typedef void (^APRewardedVideoFinishState)(APRewardedAd *, APVideoFinishState);
 
-@protocol APRewardedAdDelegate;
-
-@interface APRewardedAd : NSObject
-
-@property(weak) id<APRewardedAdDelegate> delegate;
-
-@property (copy) void (^onPaidEvent)(double value);
-
-@property (copy) APRewardedVideoFinishState videoFinishState;
-
-@property(readonly, copy) NSString *slotId;
-
-- (id)initWithSlotId:(NSString *)slotId;
-
-- (void)setExtraParameterForKey:(NSString *)key value:(NSString *)value;
-
-- (void)load;
-
-- (void)presentFromRootViewController:(UIViewController *)controller;
-
-- (BOOL)isReady;
-
-- (void)setUserIdForSSV:(NSString *)userId NS_SWIFT_NAME(setUserIdForSSV(userId:));
-
-- (void)setCustomDataForSSV:(NSString *)customData NS_SWIFT_NAME(setCustomDataForSSV(customData:));
-
-@end
-
 @protocol APRewardedAdDelegate <NSObject>
 
 @required
@@ -68,4 +40,30 @@ typedef void (^APRewardedVideoFinishState)(APRewardedAd *, APVideoFinishState);
 // 리워드 광고 노출 실패
 - (void)rewardedAdDidFailToShowAd:(APRewardedAd *)rewardedAd
                         withError:(NSError *)error;
+@end
+
+@interface APRewardedAd : NSObject
+
+@property(weak) id<APRewardedAdDelegate> delegate;
+
+@property (copy) void (^onPaidEvent)(double value);
+
+@property (copy) APRewardedVideoFinishState videoFinishState;
+
+@property(readonly, copy) NSString *slotId;
+
+- (id)initWithSlotId:(NSString *)slotId;
+
+- (void)setExtraParameterForKey:(NSString *)key value:(NSString *)value;
+
+- (void)load;
+
+- (void)presentFromRootViewController:(UIViewController *)controller;
+
+- (BOOL)isReady;
+
+- (void)setUserIdForSSV:(NSString *)userId NS_SWIFT_NAME(setUserIdForSSV(userId:));
+
+- (void)setCustomDataForSSV:(NSString *)customData NS_SWIFT_NAME(setCustomDataForSSV(customData:));
+
 @end
