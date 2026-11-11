@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "AdPieX-SDK"
-  spec.version      = "1.0.6"
+  spec.version      = "1.0.7"
   spec.summary      = "AdPieX Ads SDK."
   spec.description  = "The AdPieX SDK allows developers to easily incorporate banner, interstitial and native ads. It will benefit developers a lot."
   spec.homepage     = "https://docs.adpiex.com/adpiex"
@@ -9,8 +9,8 @@ Pod::Spec.new do |spec|
     :text => 'Neptune Company. All rights Reserved.'
   }
   spec.author       = "Neptune Company"
-  spec.platform     = :ios, "12.0"
-  spec.ios.deployment_target = "12.0"
+  spec.platform     = :ios, "15.0"
+  spec.ios.deployment_target = "15.0"
   spec.source       = { :git => "https://github.com/adxcorp/adpiex-ios-sdk.git", :tag => spec.version.to_s }
   spec.ios.vendored_frameworks = "frmAdPieX/AdPieXFramework.xcframework"
   spec.frameworks = "AdSupport", "CoreTelephony", "SystemConfiguration"

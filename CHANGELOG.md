@@ -1,5 +1,7 @@
 
 # Change log
+### 1.0.7 (2026/11/12)
+- Added support for App Open Ads.
 
 ### 1.0.6 (2026/08/03)
  - Improved developer log activation and output
