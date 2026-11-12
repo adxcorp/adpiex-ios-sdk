@@ -13,19 +13,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColor.systemBackgroundColor;
-    UILabel *label = [[UILabel alloc] init];
-    label.text = @"AdPieX\nSplash";
-    label.numberOfLines = 0;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:label];
-    [NSLayoutConstraint activateConstraints:@[
-        [label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
-        [label.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor]
-    ]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:)
-                                                name:UIApplicationDidBecomeActiveNotification object:nil];
+    [self setUI];
+    [self setNotification];
 }
 
 - (void)dealloc {
@@ -50,10 +39,30 @@
     }];
 }
 
+- (void)setUI {
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"AdPieX\nSplash";
+    label.font = [UIFont systemFontOfSize:24 weight:UIFontWeightSemibold];
+    label.numberOfLines = 0;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:label];
+    [NSLayoutConstraint activateConstraints:@[
+        [label.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+        [label.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor]
+    ]];
+}
+
+- (void)setNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive:)
+                                                name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
 - (void)didBecomeActive:(NSNotification *)notification {
-    // ATT 팝업이 닫힌 뒤 앱이 다시 활성화되면 이어서 진행한다.
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self showLoadingIfNeeded];
+        [weakSelf showLoadingIfNeeded];
     });
 }
 

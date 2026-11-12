@@ -91,7 +91,7 @@ final class SplashLoadingViewController: UIViewController {
     // MARK: - Navigate
 
     private func waitAndShowMain() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             self?.showMain()
         }
     }
@@ -110,7 +110,7 @@ final class SplashLoadingViewController: UIViewController {
 
 extension SplashLoadingViewController: APAppOpenAdDelegate {
     func appOpenAdDidDismissScreen(_ ad: APAppOpenAdService) {
-        showMain()
+        waitAndShowMain()
     }
 
     func appOpenAdDidFail(toShowAd ad: APAppOpenAdService, withError error: Error) {
