@@ -1,19 +1,9 @@
 import UIKit
 import AdPieXFramework
 
-class RewardedAdViewController: UIViewController {
+final class RewardedAdViewController: UIViewController {
 
-    let slotId: String
-    var rewardedAd: APRewardedAd?
-    
-    init(slotId: String) {
-        self.slotId = slotId
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - UI Components
     
     private let loadButton: UIButton = {
         let button = UIButton(type: .system)
@@ -27,7 +17,6 @@ class RewardedAdViewController: UIViewController {
         button.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return button
     }()
-
     private let showButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Show Ad", for: .normal)
@@ -41,7 +30,6 @@ class RewardedAdViewController: UIViewController {
         button.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return button
     }()
-
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -51,15 +39,36 @@ class RewardedAdViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
+    // MARK: - Properties
+    
+    let slotId: String
+    var rewardedAd: APRewardedAd?
+    
+    // MARK: - Init
+    
+    init(slotId: String) {
+        self.slotId = slotId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupUI()
-        setupActions()
+        setUI()
+        setRewardedAd()
+        setActions()
     }
+    
+    // MARK: - Set UI
 
-    private func setupUI() {
+    private func setUI() {
         stackView.addArrangedSubview(loadButton)
         stackView.addArrangedSubview(showButton)
         view.addSubview(stackView)
@@ -69,15 +78,22 @@ class RewardedAdViewController: UIViewController {
         ])
     }
     
-    private func setupActions() {
+    // MARK: - Set Rewarded Ad
+    
+    private func setRewardedAd() {
+        rewardedAd = APRewardedAd(slotId: self.slotId)
+        rewardedAd?.delegate = self
+    }
+    
+    // MARK: - Set Button Action
+    
+    private func setActions() {
         loadButton.addTarget(self, action: #selector(didTapLoadAdButton), for: .touchUpInside)
         showButton.addTarget(self, action: #selector(didTapShowAdButton), for: .touchUpInside)
     }
     
     @objc private func didTapLoadAdButton() {
-        self.rewardedAd = APRewardedAd(slotId: self.slotId)
-        self.rewardedAd?.delegate = self
-        self.rewardedAd?.load()
+        rewardedAd?.load()
     }
     
     @objc private func didTapShowAdButton() {
@@ -87,9 +103,9 @@ class RewardedAdViewController: UIViewController {
     }
 }
 
-extension RewardedAdViewController: APRewardedAdDelegate {
+// MARK: - APRewardedAdDelegate
 
-    // MARK: - APRewardedAdDelegate delegates
+extension RewardedAdViewController: APRewardedAdDelegate {
     func rewardedAdDidLoad(_ rewardedAd: APRewardedAd!) {
         showToast(message: #function)
         print(#function)
@@ -98,20 +114,24 @@ extension RewardedAdViewController: APRewardedAdDelegate {
     func rewardedAdDidFail(toLoad rewardedAd: APRewardedAd!, withError error: Error!) {
         showToast(message: #function)
         let nsError = error as NSError
-        let errorMsg = String(format: "Error (code : %d, message : %@, date : %@)",
-                              Int32(nsError.code),
-                              nsError.localizedDescription,
-                              Date().description(with: Locale.current))
+        let errorMsg = String(
+            format: "Error (code : %d, message : %@, date : %@)",
+            Int32(nsError.code),
+            nsError.localizedDescription,
+            Date().description(with: Locale.current)
+        )
         print("\(#function), \(errorMsg)")
     }
     
     func rewardedAdDidFail(toShow rewardedAd: APRewardedAd!, withError error: Error!) {
         showToast(message: #function)
         let nsError = error as NSError
-        let errorMsg = String(format: "Error (code : %d, message : %@, date : %@)",
-                              Int32(nsError.code),
-                              nsError.localizedDescription,
-                              Date().description(with: Locale.current))
+        let errorMsg = String(
+            format: "Error (code : %d, message : %@, date : %@)",
+            Int32(nsError.code),
+            nsError.localizedDescription,
+            Date().description(with: Locale.current)
+        )
         print("\(#function), \(errorMsg)")
     }
     
@@ -144,5 +164,4 @@ extension RewardedAdViewController: APRewardedAdDelegate {
     func rewardedVideoFinished(_ rewardedAd: APRewardedAd!, videoFinishState: APVideoFinishState) {
         print(#function)
     }
-
 }

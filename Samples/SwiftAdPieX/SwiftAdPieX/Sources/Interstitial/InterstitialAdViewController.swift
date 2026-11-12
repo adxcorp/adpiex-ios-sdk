@@ -1,19 +1,9 @@
 import UIKit
 import AdPieXFramework
 
-class InterstitialAdViewController: UIViewController {
+final class InterstitialAdViewController: UIViewController {
 
-    let slotId: String
-    var interstitial: APInterstitial?
-    
-    init(slotId: String) {
-        self.slotId = slotId
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - UI Components
 
     private let loadButton: UIButton = {
         let button = UIButton(type: .system)
@@ -27,7 +17,6 @@ class InterstitialAdViewController: UIViewController {
         button.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return button
     }()
-
     private let showButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Show Ad", for: .normal)
@@ -41,7 +30,6 @@ class InterstitialAdViewController: UIViewController {
         button.widthAnchor.constraint(equalToConstant: 200).isActive = true
         return button
     }()
-
     private let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -51,15 +39,36 @@ class InterstitialAdViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
+    // MARK: - Properties
+    
+    let slotId: String
+    var interstitial: APInterstitial?
+    
+    // MARK: - Init
+    
+    init(slotId: String) {
+        self.slotId = slotId
+        super.init(nibName: nil, bundle: nil)
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupUI()
-        setupActions()
+        setUI()
+        setInterstitialAd()
+        setActions()
     }
+    
+    // MARK: - Set UI
 
-    private func setupUI() {
+    private func setUI() {
         stackView.addArrangedSubview(loadButton)
         stackView.addArrangedSubview(showButton)
         view.addSubview(stackView)
@@ -69,15 +78,23 @@ class InterstitialAdViewController: UIViewController {
         ])
     }
     
-    private func setupActions() {
+    // MARK: - Set Interstitial Ad
+    
+    private func setInterstitialAd() {
+        interstitial = APInterstitial(slotId: self.slotId)
+        interstitial?.delegate = self
+    }
+    
+    // MARK: - Set Button Action
+    
+    private func setActions() {
         loadButton.addTarget(self, action: #selector(didTapLoadAdButton), for: .touchUpInside)
         showButton.addTarget(self, action: #selector(didTapShowAdButton), for: .touchUpInside)
     }
     
     @objc private func didTapLoadAdButton() {
-        self.interstitial = APInterstitial(slotId: self.slotId)
-        self.interstitial?.delegate = self
-        self.interstitial?.load()
+        // request interstitial ad
+        interstitial?.load()
     }
     
     @objc private func didTapShowAdButton() {
@@ -87,10 +104,9 @@ class InterstitialAdViewController: UIViewController {
     }
 }
 
+// MARK: - APInterstitialDelegate
+
 extension InterstitialAdViewController: APInterstitialDelegate {
-    
-    // MARK: - APInterstitial delegates
-    
     func interstitialDidLoadAd(_ interstitial: APInterstitial!) {
         showToast(message: #function)
         print(#function)
@@ -99,20 +115,24 @@ extension InterstitialAdViewController: APInterstitialDelegate {
     func interstitialDidFail(toLoadAd interstitial: APInterstitial!, withError error: Error!) {
         showToast(message: #function)
         let nsError = error as NSError
-        let errorMsg = String(format: "Error (code : %d, message : %@, date : %@)",
-                              Int32(nsError.code),
-                              nsError.localizedDescription,
-                              Date().description(with: Locale.current))
+        let errorMsg = String(
+            format: "Error (code : %d, message : %@, date : %@)",
+            Int32(nsError.code),
+            nsError.localizedDescription,
+            Date().description(with: Locale.current)
+        )
         print("\(#function), \(errorMsg)")
     }
     
     func interstitialDidFail(toShowAd interstitial: APInterstitial!, withError error: (any Error)!) {
         showToast(message: #function)
         let nsError = error as NSError
-        let errorMsg = String(format: "Error (code : %d, message : %@, date : %@)",
-                              Int32(nsError.code),
-                              nsError.localizedDescription,
-                              Date().description(with: Locale.current))
+        let errorMsg = String(
+            format: "Error (code : %d, message : %@, date : %@)",
+            Int32(nsError.code),
+            nsError.localizedDescription,
+            Date().description(with: Locale.current)
+        )
         print("\(#function), \(errorMsg)")
     }
     
@@ -132,6 +152,4 @@ extension InterstitialAdViewController: APInterstitialDelegate {
     func interstitialWillLeaveApplication(_ interstitial: APInterstitial!) {
         print(#function)
     }
-    
 }
-

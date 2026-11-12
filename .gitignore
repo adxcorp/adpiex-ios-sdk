@@ -27,6 +27,6 @@ xcuserdata/
 # CocoaPods
 Pods/
 *.xcworkspace
-AdPieSwiftSample/Podfile.lock
-AdPieSample/Podfile.lock
+Samples/ObjcAdPieX/Podfile.lock
+Samples/SwiftAdPieX/Podfile.lock
 .DS_Store

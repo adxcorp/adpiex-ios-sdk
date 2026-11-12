@@ -4,9 +4,10 @@ import AdPieXFramework
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    private var sdkInitializationResult: Bool?
+    private var sdkInitializationCompletions: [(Bool) -> Void] = []
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         requestTrackingPermission { [weak self] _ in
             self?.initializeAdPieSDK()
         }
@@ -27,12 +28,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-    func initializeAdPieSDK() {
-        guard AdPieSDK.sharedInstance().isInitialized == false else { return }
-        AdPieSDK.sharedInstance().logging()
-        AdPieSDK.sharedInstance().initWithMediaId("697c12a8a56addbb35024bff")
+    // The splash only waits for the result; initialization starts at app launch.
+    func waitForAdPieSDKInitialization(completion: @escaping (Bool) -> Void) {
+        if let result = sdkInitializationResult {
+            completion(result)
+        } else {
+            sdkInitializationCompletions.append(completion)
+        }
     }
-    
+
+    private func initializeAdPieSDK() {
+        guard !AdPieSDK.sharedInstance().isInitialized else {
+            finishAdPieSDKInitialization(true)
+            return
+        }
+        AdPieSDK.sharedInstance().logging()
+        AdPieSDK.sharedInstance().initWithMediaId("697c12a8a56addbb35024bff") { [weak self] initialized in
+            DispatchQueue.main.async {
+                self?.finishAdPieSDKInitialization(initialized)
+            }
+        }
+    }
+
+    private func finishAdPieSDKInitialization(_ initialized: Bool) {
+        sdkInitializationResult = initialized
+        let completions = sdkInitializationCompletions
+        sdkInitializationCompletions.removeAll()
+        completions.forEach { $0(initialized) }
+    }
+
     func requestTrackingPermission(completion: @escaping (Bool) -> Void) {
         guard #available(iOS 14, *) else {
             return DispatchQueue.main.async { completion(true) }

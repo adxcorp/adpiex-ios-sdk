@@ -1,5 +1,5 @@
 #import "SceneDelegate.h"
-#import "AdListViewController.h"
+#import "SplashViewController.h"
 
 @interface SceneDelegate ()
 
@@ -16,7 +16,7 @@
     UIWindowScene *windowScene = (UIWindowScene *)scene;
     self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
     UINavigationController *nav =
-        [[UINavigationController alloc] initWithRootViewController:[[AdListViewController alloc] init]];
+        [[UINavigationController alloc] initWithRootViewController:[[SplashViewController alloc] init]];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }

@@ -6,19 +6,17 @@ enum TableItem {
     case ad(APNativeAdData)
 }
 
-class NativeAdViewController: UITableViewController {
+final class NativeAdViewController: UITableViewController {
     
     // MARK: - Properties
-    private let slotId: String
-    private var nativeAd: APNativeAd?
     
-    // Use Swift native Array instead of NSMutableArray
+    private let slotId: String
+    private let adRowIndex = 10
+    private var nativeAd: APNativeAd?
     private var items: [TableItem] = []
     
-    // Position where the ad will be inserted
-    private let adRowIndex = 10
-    
     // MARK: - Init
+    
     init(slotId: String) {
         self.slotId = slotId
         super.init(nibName: nil, bundle: nil)
@@ -28,12 +26,13 @@ class NativeAdViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupData()
-        setupAd()
+        setUI()
+        setData()
+        setAd()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,31 +40,30 @@ class NativeAdViewController: UITableViewController {
         loadAd()
     }
     
-    // MARK: - Setup
-    private func setupUI() {
-        // Basic Setup
+    // MARK: - Set UI
+    
+    private func setUI() {
         view.backgroundColor = .systemBackground
-        tableView.backgroundColor = .systemBackground
         
-        // Height Setup (Support Auto Layout)
+        tableView.backgroundColor = .systemBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
-        
-        // Register Cells
-        let adNib = UINib(nibName: "AdPieTableViewCell", bundle: nil)
-        tableView.register(adNib, forCellReuseIdentifier: "AdPieTableViewCell")
+        tableView.register(UINib(nibName: "AdPieTableViewCell", bundle: nil), forCellReuseIdentifier: "AdPieTableViewCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DefaultCell")
     }
     
-    private func setupData() {
-        // Generate items from 1 to 20
+    // MARK: - Set Data And NativeAd 
+    
+    private func setData() {
         items = (1...20).map { .content("Item \($0)") }
     }
     
-    private func setupAd() {
+    private func setAd() {
         nativeAd = APNativeAd(slotId: self.slotId)
         nativeAd?.delegate = self
     }
+    
+    // MARK: - Request Native Ad
     
     private func loadAd() {
         nativeAd?.load()
@@ -73,8 +71,8 @@ class NativeAdViewController: UITableViewController {
 }
 
 // MARK: - UITableViewDataSource
+
 extension NativeAdViewController {
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
@@ -116,8 +114,8 @@ extension NativeAdViewController {
 }
 
 // MARK: - APNativeDelegate
+
 extension NativeAdViewController: APNativeDelegate {
-    
     func nativeDidLoad(_ nativeAd: APNativeAd!) {
         showToast(message: #function)
         guard let adData = nativeAd.nativeAdData else { return }
@@ -133,10 +131,12 @@ extension NativeAdViewController: APNativeDelegate {
     func nativeDidFail(toLoad nativeAd: APNativeAd!, withError error: Error!) {
         showToast(message: #function)
         let nsError = error as NSError
-        let errorMsg = String(format: "Error (code : %d, message : %@, date : %@)",
-                              Int32(nsError.code),
-                              nsError.localizedDescription,
-                              Date().description(with: Locale.current))
+        let errorMsg = String(
+            format: "Error (code : %d, message : %@, date : %@)",
+            Int32(nsError.code),
+            nsError.localizedDescription,
+            Date().description(with: Locale.current)
+        )
         print("\(#function), \(errorMsg)")
     }
     

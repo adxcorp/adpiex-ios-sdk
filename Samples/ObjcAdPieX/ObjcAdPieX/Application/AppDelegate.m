@@ -3,6 +3,8 @@
 #import <AdPieXFramework/AdPieSDK.h>
 
 @interface AppDelegate ()
+@property (nonatomic, strong) NSNumber *sdkInitializationResult;
+@property (nonatomic, strong) NSMutableArray<void (^)(BOOL)> *sdkInitializationCompletions;
 
 @end
 
@@ -10,7 +12,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     [self requestTrackingPermission:^(BOOL granted) {
         [self initializeAdPieSDK];
     }];
@@ -34,10 +35,38 @@
     // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 }
 
+// The splash only waits for the result; initialization starts at app launch.
+- (void)waitForAdPieSDKInitialization:(void (^)(BOOL initialized))completion {
+    if (self.sdkInitializationResult) {
+        completion(self.sdkInitializationResult.boolValue);
+    } else {
+        if (!self.sdkInitializationCompletions) {
+            self.sdkInitializationCompletions = [NSMutableArray array];
+        }
+        [self.sdkInitializationCompletions addObject:[completion copy]];
+    }
+}
+
 - (void)initializeAdPieSDK {
-   if ([[AdPieSDK sharedInstance] isInitialized]) { return; }
-   [[AdPieSDK sharedInstance] logging];
-   [[AdPieSDK sharedInstance] initWithMediaId:@"697c12a8a56addbb35024bff"];
+    if ([[AdPieSDK sharedInstance] isInitialized]) {
+        [self finishAdPieSDKInitialization:YES];
+        return;
+    }
+    [[AdPieSDK sharedInstance] logging];
+    [[AdPieSDK sharedInstance] initWithMediaId:@"697c12a8a56addbb35024bff" completion:^(BOOL initialized) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self finishAdPieSDKInitialization:initialized];
+        });
+    }];
+}
+
+- (void)finishAdPieSDKInitialization:(BOOL)initialized {
+    self.sdkInitializationResult = @(initialized);
+    NSArray<void (^)(BOOL)> *completions = [self.sdkInitializationCompletions copy];
+    [self.sdkInitializationCompletions removeAllObjects];
+    for (void (^completion)(BOOL) in completions) {
+        completion(initialized);
+    }
 }
 
 - (void)requestTrackingPermission:(void (^)(BOOL granted))completion {
